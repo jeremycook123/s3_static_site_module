@@ -52,12 +52,12 @@ resource "aws_s3_object" "index" {
 #   content_type = "text/html"
 # }
 
-# resource "aws_s3_object" "assets_folder" {
-#   for_each = fileset("assets", "**/*")
-#   bucket   = aws_s3_bucket.website.id
-#   key      = each.key
-#   source   = "assets/${each.key}"
-# }
+resource "aws_s3_object" "js_folder" {
+  for_each = fileset("${path.module}/js", "*.js")
+  bucket   = aws_s3_bucket.website.id
+  key      = each.key
+  source   = "js/${each.key}"
+}
 
 # resource "aws_s3_object" "error_folder" {
 #   for_each = fileset("error_files", "**/*")
@@ -77,14 +77,14 @@ resource "aws_s3_bucket_website_configuration" "website" {
   #   key = "error.html"
   # }
 
-  # routing_rule {
-  #   condition {
-  #     key_prefix_equals = "assets/"
-  #   }
-  #   redirect {
-  #     replace_key_prefix_with = "assets/"
-  #   }
-  # }
+  routing_rule {
+    condition {
+      key_prefix_equals = "js/"
+    }
+    redirect {
+      replace_key_prefix_with = "js/"
+    }
+  }
 }
 
 resource "aws_s3_bucket_policy" "public_read_access" {
