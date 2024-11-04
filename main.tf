@@ -66,7 +66,7 @@ resource "aws_s3_object" "index" {
 #   source   = "error_files/${each.key}"
 # }
 
-resource "aws_s3_bucket_website_configuration" "example" {
+resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.website.id
 
   index_document {
