@@ -74,39 +74,12 @@ resource "aws_s3_object" "js_folder" {
   content_type = "text/javascript"
 }
 
-# resource "aws_s3_object" "error" {
-#   bucket       = aws_s3_bucket.website.id
-#   key          = "error.html"
-#   source       = "error.html"
-#   content_type = "text/html"
-# }
-
-# resource "aws_s3_object" "error_folder" {
-#   for_each = fileset("error_files", "**/*")
-#   bucket   = aws_s3_bucket.website.id
-#   key      = each.key
-#   source   = "error_files/${each.key}"
-# }
-
 resource "aws_s3_bucket_website_configuration" "website" {
   bucket = aws_s3_bucket.website.id
 
   index_document {
     suffix = "index.html"
   }
-
-  # error_document {
-  #   key = "error.html"
-  # }
-
-  # routing_rule {
-  #   condition {
-  #     key_prefix_equals = "js/"
-  #   }
-  #   redirect {
-  #     replace_key_prefix_with = "js/"
-  #   }
-  # }
 }
 
 resource "aws_s3_bucket_policy" "public_read_access" {

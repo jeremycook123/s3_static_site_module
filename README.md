@@ -6,7 +6,7 @@
 
 ```hcl
 module "website" {
-  source = "github.com/jeremycook123/s3_static_site_module//s3-hosted-website-bucket?ref=v0.0.1"
+  source = "github.com/jeremycook123/s3_static_site_module"
   
   bucket_name = "bucket-1234abcd"
 
@@ -27,15 +27,13 @@ If `create_random_suffix = true`, the bucket name will include a randomly genera
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=0.13.1 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >=3.73 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | >=3.1.1 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >=1.9 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.73 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.70 |
 | <a name="provider_random"></a> [random](#provider\_random) | >= 3.1.1 |
 
 ## Modules
@@ -58,8 +56,6 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | Name of S3 bucket for the website | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment bucket resides in | `string` | n/a | yes |
-| <a name="input_index_document"></a> [index\_document](#input\_index\_document) | Name of index document for the website | `string` | `index.html` | no |
-| <a name="input_error_document"></a> [error\_document](#input\_error\_document) | Name of error document for the website) | `string` | `error.html` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Github owner to use when creating webhook | `map(string)` | `{}` | no |
 | <a name="input_create_random_suffix"></a> [create\_random\_suffix](#input\_github\_token) | Add random suffix to bucket name | `bool` | `false` | no |
 
