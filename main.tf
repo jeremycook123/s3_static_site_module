@@ -38,11 +38,33 @@ resource "aws_s3_bucket_acl" "bucket_acl" {
   acl    = "public-read"
 }
 
-resource "aws_s3_object" "index" {
+resource "aws_s3_object" "index_html" {
   bucket       = aws_s3_bucket.website.id
   key          = "index.html"
   source       = "${path.module}/website/index.html"
   content_type = "text/html"
+}
+
+resource "aws_s3_object" "globe_js" {
+  bucket       = aws_s3_bucket.website.id
+  key          = "globe.js"
+  source       = "${path.module}/website/globe.js"
+  content_type = "text/javascript"
+}
+
+resource "aws_s3_object" "world_jpg" {
+  bucket       = aws_s3_bucket.website.id
+  key          = "world.jpg"
+  source       = "${path.module}/website/world.jpg"
+  content_type = "image/jpeg"
+}
+
+resource "aws_s3_object" "js_folder" {
+  for_each     = fileset("${path.module}/website/js", "*.js")
+  bucket       = aws_s3_bucket.website.id
+  key          = each.key
+  source       = "website/js/${each.key}"
+  content_type = "text/javascript"
 }
 
 # resource "aws_s3_object" "error" {
@@ -51,13 +73,6 @@ resource "aws_s3_object" "index" {
 #   source       = "error.html"
 #   content_type = "text/html"
 # }
-
-resource "aws_s3_object" "js_folder" {
-  for_each = fileset("${path.module}/js", "*.js")
-  bucket   = aws_s3_bucket.website.id
-  key      = each.key
-  source   = "js/${each.key}"
-}
 
 # resource "aws_s3_object" "error_folder" {
 #   for_each = fileset("error_files", "**/*")
