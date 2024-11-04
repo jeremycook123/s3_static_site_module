@@ -63,7 +63,7 @@ resource "aws_s3_object" "js_folder" {
   for_each     = fileset("${path.module}/website/js", "*.js")
   bucket       = aws_s3_bucket.website.id
   key          = each.key
-  source       = "website/js/${each.key}"
+  source       = "${path.module}/website/js/${each.key}"
   content_type = "text/javascript"
 }
 
