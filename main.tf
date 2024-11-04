@@ -82,22 +82,22 @@ resource "aws_s3_bucket_website_configuration" "website" {
   }
 }
 
-# resource "aws_s3_bucket_policy" "public_read_access" {
-#   bucket = aws_s3_bucket.website.id
-#   policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#    "Principal": "*",
-#       "Action": [ "s3:GetObject" ],
-#       "Resource": [
-#         "${aws_s3_bucket.website.arn}",
-#         "${aws_s3_bucket.website.arn}/*"
-#       ]
-#     }
-#   ]
-# }
-# EOF
-# }
+resource "aws_s3_bucket_policy" "public_read_access" {
+  bucket = aws_s3_bucket.website.id
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+   "Principal": "*",
+      "Action": [ "s3:GetObject" ],
+      "Resource": [
+        "${aws_s3_bucket.website.arn}",
+        "${aws_s3_bucket.website.arn}/*"
+      ]
+    }
+  ]
+}
+EOF
+}
