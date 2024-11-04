@@ -20,7 +20,7 @@ resource "aws_s3_bucket_ownership_controls" "ownership" {
   }
 }
 
-resource "aws_s3_bucket_public_access_block" "publiceaccess" {
+resource "aws_s3_bucket_public_access_block" "public_access" {
   bucket                  = aws_s3_bucket.website.id
   block_public_acls       = false
   block_public_policy     = false
@@ -31,7 +31,7 @@ resource "aws_s3_bucket_public_access_block" "publiceaccess" {
 resource "aws_s3_bucket_acl" "bucket_acl" {
   depends_on = [
     aws_s3_bucket_ownership_controls.ownership,
-    aws_s3_bucket_public_access_block.publiceaccess,
+    aws_s3_bucket_public_access_block.public_access,
   ]
 
   bucket = aws_s3_bucket.website.id
@@ -83,6 +83,10 @@ resource "aws_s3_bucket_website_configuration" "website" {
 }
 
 resource "aws_s3_bucket_policy" "public_read_access" {
+  depends_on = [
+    aws_s3_bucket_public_access_block.public_access
+  ]
+
   bucket = aws_s3_bucket.website.id
   policy = <<EOF
 {
@@ -100,4 +104,3 @@ resource "aws_s3_bucket_policy" "public_read_access" {
   ]
 }
 EOF
-}
