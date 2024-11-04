@@ -52,6 +52,13 @@ resource "aws_s3_object" "globe_js" {
   content_type = "text/javascript"
 }
 
+resource "aws_s3_object" "elevation_json" {
+  bucket       = aws_s3_bucket.website.id
+  key          = "elevation_15000.json"
+  source       = "${path.module}/website/elevation_15000.json"
+  content_type = "application/json"
+}
+
 resource "aws_s3_object" "world_jpg" {
   bucket       = aws_s3_bucket.website.id
   key          = "world.jpg"
