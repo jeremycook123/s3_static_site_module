@@ -99,14 +99,14 @@ resource "aws_s3_bucket_website_configuration" "website" {
   #   key = "error.html"
   # }
 
-  routing_rule {
-    condition {
-      key_prefix_equals = "js/"
-    }
-    redirect {
-      replace_key_prefix_with = "js/"
-    }
-  }
+  # routing_rule {
+  #   condition {
+  #     key_prefix_equals = "js/"
+  #   }
+  #   redirect {
+  #     replace_key_prefix_with = "js/"
+  #   }
+  # }
 }
 
 resource "aws_s3_bucket_policy" "public_read_access" {
